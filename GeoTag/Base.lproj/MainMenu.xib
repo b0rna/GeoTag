@@ -253,13 +253,13 @@ CA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <scrollView misplaced="YES" borderType="line" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARi-Ei-bTG">
-                                        <rect key="frame" x="0.0" y="0.0" width="522" height="517"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="531" height="517"/>
                                         <clipView key="contentView" id="gmY-qF-zsb">
-                                            <rect key="frame" x="1" y="1" width="520" height="515"/>
+                                            <rect key="frame" x="1" y="1" width="529" height="515"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" autosaveName="ImageTable" rowSizeStyle="automatic" headerView="acu-99-iMm" viewBased="YES" id="skl-pj-P9m">
-                                                    <rect key="frame" x="0.0" y="0.0" width="520" height="492"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="529" height="492"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -376,7 +376,7 @@ CA
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="longitude" editable="NO" width="94" minWidth="10" maxWidth="3.4028234663852886e+38" id="0Bk-nM-nLV">
+                                                        <tableColumn identifier="longitude" editable="NO" width="103" minWidth="10" maxWidth="3.4028234663852886e+38" id="0Bk-nM-nLV">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Longitude">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -390,11 +390,11 @@ CA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="longitude" id="4Km-RM-P0Q">
-                                                                    <rect key="frame" x="424" y="1" width="94" height="17"/>
+                                                                    <rect key="frame" x="424" y="1" width="103" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fNU-Jf-yeQ">
-                                                                            <rect key="frame" x="0.0" y="1" width="82" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="1" width="91" height="16"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="-122.123456" id="e4b-z8-Hnu">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -431,7 +431,7 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="acu-99-iMm">
-                                            <rect key="frame" x="0.0" y="0.0" width="520" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="529" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                         <connections>
@@ -450,23 +450,23 @@ CA
                                 <rect key="frame" x="540" y="0.0" width="520" height="517"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <splitView autosaveName="GeoTagUpDown" translatesAutoresizingMaskIntoConstraints="NO" id="Owq-8L-C5q">
-                                        <rect key="frame" x="0.0" y="0.0" width="521" height="493"/>
+                                    <splitView misplaced="YES" autosaveName="GeoTagUpDown" translatesAutoresizingMaskIntoConstraints="NO" id="Owq-8L-C5q">
+                                        <rect key="frame" x="0.0" y="0.0" width="512" height="517"/>
                                         <subviews>
-                                            <customView id="VLF-DZ-LKW" userLabel="Image pane">
-                                                <rect key="frame" x="0.0" y="0.0" width="521" height="213"/>
+                                            <customView misplaced="YES" id="VLF-DZ-LKW" userLabel="Image pane">
+                                                <rect key="frame" x="0.0" y="0.0" width="512" height="224"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <avPlayerView hidden="YES" fixedFrame="YES" controlsStyle="inline" showsFrameSteppingButtons="YES" showsFullScreenToggleButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="isX-74-kab">
-                                                        <rect key="frame" x="0.0" y="0.0" width="521" height="213"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                    </avPlayerView>
-                                                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="xuH-yg-55o">
-                                                        <rect key="frame" x="-3" y="-3" width="527" height="219"/>
+                                                    <imageView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xuH-yg-55o">
+                                                        <rect key="frame" x="-3" y="-3" width="518" height="230"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="giZ-5r-50G"/>
                                                     </imageView>
+                                                    <avPlayerView hidden="YES" fixedFrame="YES" controlsStyle="inline" showsFrameSteppingButtons="YES" showsFullScreenToggleButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="isX-74-kab">
+                                                        <rect key="frame" x="0.0" y="0.0" width="512" height="224"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                    </avPlayerView>
                                                     <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Leb-gI-5bq">
-                                                        <rect key="frame" x="164" y="97" width="193" height="20"/>
+                                                        <rect key="frame" x="160" y="97" width="193" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="193" id="BMR-vd-JD0"/>
                                                         </constraints>
@@ -481,12 +481,12 @@ CA
                                                     <constraint firstAttribute="centerX" secondItem="Leb-gI-5bq" secondAttribute="centerX" id="rHJ-rN-MCW"/>
                                                 </constraints>
                                             </customView>
-                                            <customView id="mR8-Yl-B58" userLabel="Map pane">
-                                                <rect key="frame" x="0.0" y="222" width="521" height="271"/>
+                                            <customView misplaced="YES" id="mR8-Yl-B58" userLabel="Map pane">
+                                                <rect key="frame" x="0.0" y="233" width="512" height="284"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jOB-Xu-ExJ">
-                                                        <rect key="frame" x="363" y="231" width="144" height="32"/>
+                                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jOB-Xu-ExJ">
+                                                        <rect key="frame" x="354" y="243" width="144" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="SvS-X7-UYa"/>
                                                         </constraints>
@@ -498,8 +498,8 @@ CA
                                                             <action selector="saveMapSetting:" target="Go6-yP-GH9" id="BMB-0r-9Ss"/>
                                                         </connections>
                                                     </button>
-                                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UAa-bh-Wko">
-                                                        <rect key="frame" x="18" y="236" width="282" height="24"/>
+                                                    <segmentedControl verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UAa-bh-Wko">
+                                                        <rect key="frame" x="18" y="248" width="282" height="24"/>
                                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="248-FW-Avl">
                                                             <font key="font" metaFont="system"/>
                                                             <segments>
@@ -512,14 +512,14 @@ CA
                                                             <action selector="changeMapType:" target="Go6-yP-GH9" id="3Ly-Dz-fL1"/>
                                                         </connections>
                                                     </segmentedControl>
-                                                    <mapView mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Zwv-MK-4Du" customClass="MapView" customModule="GeoTag" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="521" height="230"/>
+                                                    <mapView misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Zwv-MK-4Du" customClass="MapView" customModule="GeoTag" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="512" height="242"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="Go6-yP-GH9" id="xhZ-dn-nDA"/>
                                                         </connections>
                                                     </mapView>
                                                     <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBm-xR-XMN">
-                                                        <rect key="frame" x="259" y="196" width="250" height="22"/>
+                                                        <rect key="frame" x="246" y="196" width="246" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" maximumRecents="10" recentsAutosaveName="Searches" id="KmR-EN-cxb">
                                                             <font key="font" metaFont="system"/>
