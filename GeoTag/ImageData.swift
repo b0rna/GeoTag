@@ -50,11 +50,13 @@ final class ImageData: NSObject {
 
     // MARK: instance variables -- file URLs
 
-    let url: URL                // URL of the image
-    let xmpUrl: URL             // URL of sidecar file (may not exist)
-    let xmpFile: XmpFile		//
-    var sandboxUrl: URL         // URL of the sandbox copy of the image
-    var sandboxXmp: URL?        // URL of sandbox copy of sidecar file
+    let url: URL                    // URL of the image
+    let xmpUrl: URL                 // URL of sidecar file (may not exist)
+    let xmpFile: XmpFile		    //
+    var sandboxUrl: URL             // URL of the sandbox copy of the image
+    var sandboxXmp: URL?            // URL of sandbox copy of sidecar file
+    var contentTypeIsImage = false  // If both content types are false, content type is not writable
+    var contentTypeIsVideo = false
     
     // MARK: failed backup and update flag
     
@@ -154,12 +156,24 @@ final class ImageData: NSObject {
         }
         super.init()
 
-        if Exiftool.helper.fileTypeIsWritable(for: url) {
+        let fileClass = Exiftool.helper.fileTypeIsWritable(for: url)
+        
+        if fileClass == "image" {
+            contentTypeIsImage = true
+        } else if fileClass == "video" {
+            contentTypeIsVideo = true
+        }
+        
+        if contentTypeIsVideo || contentTypeIsImage {
             if let xmp = sandboxXmp,
                fileManager.fileExists(atPath: xmpUrl.path) {
                 validImage = loadXmpData(xmp)
-            } else {
-                validImage = loadImageData()
+            } else if contentTypeIsImage {
+                // always use exiftool so that video files are also readable and writable.
+		// no longe rusing loadImageData()
+                validImage = loadXmpData(sandboxUrl)
+            } else if contentTypeIsVideo {
+                validImage = loadXmpData(sandboxUrl)
             }
         }
     }

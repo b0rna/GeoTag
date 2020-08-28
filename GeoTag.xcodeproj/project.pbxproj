@@ -331,20 +331,20 @@
 				TargetAttributes = {
 					490DE1BB2297A27F000AEAB5 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = A3UXBEBE8Z;
+						DevelopmentTeam = BGJYTAJ854;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 49B0EEB319495FB100293C73;
 					};
 					4994C4CF2118EABE00DF9F28 = {
 						CreatedOnToolsVersion = 10.0;
-						DevelopmentTeam = A3UXBEBE8Z;
+						DevelopmentTeam = BGJYTAJ854;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 49B0EEB319495FB100293C73;
 					};
 					49B0EEB319495FB100293C73 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = A3UXBEBE8Z;
+						DevelopmentTeam = BGJYTAJ854;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
@@ -531,7 +531,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = A3UXBEBE8Z;
+				DEVELOPMENT_TEAM = BGJYTAJ854;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = GeoTagTests/Info.plist;
@@ -563,7 +563,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = A3UXBEBE8Z;
+				DEVELOPMENT_TEAM = BGJYTAJ854;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GeoTagTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -592,7 +592,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = A3UXBEBE8Z;
+				DEVELOPMENT_TEAM = BGJYTAJ854;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = GeoTagUITests/Info.plist;
@@ -623,7 +623,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = A3UXBEBE8Z;
+				DEVELOPMENT_TEAM = BGJYTAJ854;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GeoTagUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -742,12 +742,13 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BGJYTAJ854;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/GeoTag/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.snafu.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.b0rna.GeoTag;
 				PRODUCT_NAME = GeoTag;
 				PROVISIONING_PROFILE = "";
 				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = DEBUG;
@@ -766,12 +767,13 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BGJYTAJ854;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/GeoTag/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.snafu.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.b0rna.GeoTag;
 				PRODUCT_NAME = GeoTag;
 				PROVISIONING_PROFILE = "";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;

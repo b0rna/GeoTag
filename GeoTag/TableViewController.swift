@@ -26,6 +26,8 @@
 import Foundation
 import AppKit
 import MapKit
+import AVKit
+import AVFoundation
 
 final class TableViewController: NSViewController {
 
@@ -33,7 +35,8 @@ final class TableViewController: NSViewController {
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var imageWell: NSImageView!
     @IBOutlet var mapViewController: MapViewController!
-
+    @IBOutlet var playerView: AVPlayerView!
+    
     /// Images in the table
     var images = [ImageData]()
 
@@ -818,7 +821,20 @@ extension TableViewController: NSTableViewDelegate {
             mapViewController.removeMapPin()
         } else {
             let image = images[row]
-            imageWell.image = image.image
+
+            if image.contentTypeIsImage {
+                playerView.isHidden = true
+                imageWell.isHidden = false
+                imageWell.image = image.image
+            } else if image.contentTypeIsVideo {
+                playerView.isHidden = false
+                imageWell.isHidden = true
+                // Try to load the video file - not sure what will happen if an invalid video type is loaded here.
+		// TODO: Enhance this code by using OS methods to check that video file is valid for AVKit?
+                let player = AVPlayer(url: image.sandboxUrl)
+                playerView.player = player
+            }
+            
             if let coord = image.location {
                 reload(row: row) // change color of selected row
                 mapViewController.pinMapAt(coords: coord)

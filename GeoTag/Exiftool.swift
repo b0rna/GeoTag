@@ -122,20 +122,23 @@ struct Exiftool {
 
     // note: png files are read/writable by exiftool, but macOS can not
     // read the resulting metadata.  Remove it from the table.
-    let writableTypes: Set = [
-        "3G2", "3GP", "AAX", "AI", "ARQ", "ARW", "CR2", "CR3", "CRM",
+    let writableImageTypes: Set = [
+        "AAX", "AI", "ARQ", "ARW", "CR2", "CR3", "CRM",
         "CRW", "CS1", "DCP", "DNG", "DR4", "DVB", "EPS", "ERF", "EXIF",
         "EXV", "F4A/V", "FFF", "FLIF", "GIF", "GPR", "HDP", "HEIC", "HEIF",
-        "ICC", "IIQ", "IND", "JNG", "JP2", "JPEG", "LRV", "M4A/V", "MEF",
-        "MIE", "MNG", "MOS", "MOV", "MP4", "MPO", "MQV", "MRW",
-        "NEF", "NRW", "ORF", "PBM", "PDF", "PEF", "PGM", // "PNG",
+        "ICC", "IIQ", "IND", "JNG", "JP2", "JPEG", "LRV",
+        "MEF", "MIE", "MNG", "MOS", "MRW",
+        "NEF", "NRW", "ORF", "PBM", "PDF", "PEF", "PGM", "PNG",
         "PPM", "PS", "PSB", "PSD", "QTIF", "RAF", "RAW", "RW2",
-        "RWL", "SR2", "SRW","THM", "TIFF", "VRD", "WDP", "X3F", "XMP" ]
-
+        "RWL", "SR2", "SRW","THM", "TIFF", "VRD", "WDP", "X3F", "XMP"]
+    
+    let writableVideoTypes: Set = [
+        "3G2", "3GP","M4A/V", "MOV", "MP4", "MPO", "MQV"]
+    
     /// Check if exiftool supports writing to a type of file
     /// - Parameter for: a URL of a file to check
     /// - Returns: true if exiftool can write to the file type of the URL
-    func fileTypeIsWritable(for file: URL) -> Bool {
+    func fileTypeIsWritable(for file: URL) -> String {
         let exiftool = Process()
         let pipe = Pipe()
         exiftool.standardOutput = pipe
@@ -150,12 +153,21 @@ struct Exiftool {
                let str = String(data: data, encoding: String.Encoding.utf8) {
                 let trimmed = str.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 let strParts = trimmed.components(separatedBy: CharacterSet.whitespaces)
+                
                 if let fileType = strParts.last {
-                    return writableTypes.contains(fileType)
+                    
+                    if writableImageTypes.contains(fileType) {
+                        return "image"
+                    } else if writableVideoTypes.contains(fileType) {
+                        return "video"
+                    } else {
+                        return ""
+                    }
+                   
                 }
             }
         }
-        return false
+        return ""
     }
     
     /// return selected metadate from a file
