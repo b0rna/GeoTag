@@ -22,12 +22,10 @@
 // AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-
 import Foundation
 import AppKit
 
 /// manage GeoTag's use of exiftool
-
 struct Exiftool {
 
     /// singleton instance of this class
@@ -51,7 +49,6 @@ struct Exiftool {
     /// - Parameter imageData: the image to update.  imageData contains the URL
     ///     of the original file plus the assigned location.
     /// - Returns: ExifTool exit status
-
     func updateLocation(from imageData: ImageData) -> Int32 {
 
         // ExifTool latitude and longitude exiftool argument names
@@ -64,7 +61,6 @@ struct Exiftool {
         var gpsDArg = "-GPSDateStamp="      // for non XMP files
         var gpsTArg = "-GPSTimeStamp="      // for non XMP files
         var gpsDTArg = "-GPSDateTime="      // for XMP files
-
         // Build ExifTool latitude, longitude argument values
         if let location = imageData.location {
             let lat = location.latitude
@@ -119,7 +115,6 @@ struct Exiftool {
     }
 
     /// File Type codes for the file types that exiftool can write
-
     // note: png files are read/writable by exiftool, but macOS can not
     // read the resulting metadata.  Remove it from the table.
     let writableImageTypes: Set = [
@@ -250,7 +245,6 @@ struct Exiftool {
     ///
     /// Nil is returned if there was no date/time original or we couldn't get the
     /// appropriate time zone from image geolocation data.
-
     private
     func dtoWithZone(from imageData: ImageData) -> String? {
         if imageData.timeZone != nil,

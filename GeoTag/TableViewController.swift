@@ -136,18 +136,20 @@ final class TableViewController: NSViewController {
         let images = self.images
         var savedResult = Int32(0)
         let updateGroup = DispatchGroup()
-        for image in images {
-            updateGroup.enter()
-            DispatchQueue.global(qos: .userInitiated).async {
+        
+        updateGroup.enter()
+        DispatchQueue.global(qos: .userInitiated).async {
+            for image in images {
                 let result = image.saveImageFile()
                 if result != 0 {
                     savedResult = result
-//                    DispatchQueue.main.async {
-//                        print("Error updating \(image.url.path)")
-//                    }
+                    //                    DispatchQueue.main.async {
+                    //                        print("Error updating \(image.url.path)")
+                    //                    }
                 }
-                updateGroup.leave()
+                
             }
+            updateGroup.leave()
         }
         updateGroup.notify(queue: DispatchQueue.main) {
             self.appDelegate.progressIndicator.stopAnimation(self)
@@ -687,6 +689,8 @@ final class TableViewController: NSViewController {
         images = sortedImages as! [ImageData]
         tableView.reloadData()
         imageWell.image = nil
+        playerView.player = nil
+        playerView.isHidden = true
         mapViewController.removeMapPin()
     }
 
