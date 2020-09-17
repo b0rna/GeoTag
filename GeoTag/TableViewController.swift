@@ -46,7 +46,7 @@ final class TableViewController: NSViewController {
     // state variables
     var lastSelectedRow: Int?
     var saveInProgress = false
-
+     var p_count = 0
     // MARK: startup
 
     // object initialization
@@ -80,32 +80,43 @@ final class TableViewController: NSViewController {
         var duplicateFound = false
         // silently ignore xmp sidecar files
         let updateGroup = DispatchGroup()
-        for url in urls where url.pathExtension.lowercased() != "xmp" {
-            if imageUrls.contains(url) {
-                duplicateFound = true
-            } else {
-                imageUrls.insert(url)
-                updateGroup.enter()
-                DispatchQueue.global(qos: .userInitiated).async {
-                    do {
-                        let imageData = try ImageData(url: url)
-                        DispatchQueue.main.async {
+        let semaphore = DispatchSemaphore(value: 16)
+        
+        updateGroup.enter()
+        DispatchQueue.global(qos: .userInitiated).async {
+            for url in urls where url.pathExtension.lowercased() != "xmp" {
+                if self.imageUrls.contains(url) {
+                    duplicateFound = true
+                } else {
+                    self.imageUrls.insert(url)
+                    
+                    // Each ExifTool helper Perl instnace runs in a separate process. T
+                    // The way this was designed before, the system allowed too many Perl
+                    // instances to be kicked off when large number of files were added.
+                    // There is probably a better solution here, but for now I am putting
+                    // in a hard limit on parallel ExifTool processes.
+                    semaphore.wait()
+                    updateGroup.enter()
+                    DispatchQueue.main.async {
+                        do {
+                            let imageData = try ImageData(url: url)
                             self.images.append(imageData)
+                            semaphore.signal()
                             reloadNeeded = true
                             updateGroup.leave()
-                        }
-                    } catch let error as NSError {
-                        DispatchQueue.main.async {
+                        } catch let error as NSError {
                             let desc = NSLocalizedString("WARN_DESC_2",
                                                          comment: "cant process file error")
-                                        + "\(url.path)\n\nReason: "
+                                + "\(url.path)\n\nReason: "
                             unexpected(error: error, desc)
                             updateGroup.leave()
                         }
                     }
                 }
             }
+            updateGroup.leave()
         }
+
         updateGroup.notify(queue: DispatchQueue.main) {
             if reloadNeeded {
                 self.reloadAllRows()
@@ -137,20 +148,38 @@ final class TableViewController: NSViewController {
         var savedResult = Int32(0)
         let updateGroup = DispatchGroup()
         
+        // Prevent disk thrashing (non-ssd) ... limit simultaneousn Perl instances.
+        // This is a new requirement as video support is added to this branch.
+        // Video files can be extremely large. Letting parallel Perl processes write
+        // multiple large files back to the disk simultaneously can thrash rotating
+        // media and have a diminishing affect on save performance.
+        // TODO: Check file size, if small, kick off another thread
+        //       if large, wait until current count decrements
+        let semaphore = DispatchSemaphore(value: 4)
+        
         updateGroup.enter()
         DispatchQueue.global(qos: .userInitiated).async {
             for image in images {
-                let result = image.saveImageFile()
-                if result != 0 {
-                    savedResult = result
-                    //                    DispatchQueue.main.async {
-                    //                        print("Error updating \(image.url.path)")
-                    //                    }
-                }
+                semaphore.wait()
                 
+                DispatchQueue.global(qos: .userInitiated).async {
+                    updateGroup.enter()
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        let result = image.saveImageFile()
+                        semaphore.signal()
+                        if result != 0 {
+                            savedResult = result
+                            //                    DispatchQueue.main.async {
+                            //                        print("Error updating \(image.url.path)")
+                            //                    }
+                        }
+                        updateGroup.leave()
+                    }
+                }
             }
             updateGroup.leave()
         }
+
         updateGroup.notify(queue: DispatchQueue.main) {
             self.appDelegate.progressIndicator.stopAnimation(self)
             self.saveInProgress = false

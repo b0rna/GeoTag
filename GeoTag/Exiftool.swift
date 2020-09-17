@@ -92,6 +92,7 @@ struct Exiftool {
         exiftool.arguments = ["-q",
                               "-m",
                               "-overwrite_original_in_place",
+                               "-api largefilesupport=1",
                               latArg, latRefArg,
                               lonArg, lonRefArg]
         if Preferences.dateTimeGPS() {
@@ -139,7 +140,7 @@ struct Exiftool {
         exiftool.standardOutput = pipe
         exiftool.standardError = FileHandle.nullDevice
         exiftool.launchPath = url.path
-        exiftool.arguments = [ "-m", "-q", "-S", "-fast3", "-FileType", file.path]
+        exiftool.arguments = [ "-m", "-q", "-S", "-fast3", "-FileType", "-api largefilesupport=1", file.path]
         exiftool.launch()
         exiftool.waitUntilExit()
         if exiftool.terminationStatus == 0 {
@@ -178,7 +179,7 @@ struct Exiftool {
         exiftool.standardError = FileHandle.nullDevice
         exiftool.launchPath = url.path
         exiftool.arguments = [ "-args", "-c", "%.15f", "-createdate",
-                               "-gpsstatus", "-gpslatitude", "-gpslongitude",
+                               "-gpsstatus", "-gpslatitude", "-gpslongitude", "-api largefilesupport=1",
                                xmp.path ]
         exiftool.launch()
         exiftool.waitUntilExit()
