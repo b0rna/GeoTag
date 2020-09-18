@@ -95,6 +95,7 @@ struct Exiftool {
                                "-api largefilesupport=1",
                               latArg, latRefArg,
                               lonArg, lonRefArg]
+        
         if Preferences.dateTimeGPS() {
             if imageData.sandboxXmp == nil {
                 exiftool.arguments! += [gpsDArg, gpsTArg]
