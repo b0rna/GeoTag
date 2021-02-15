@@ -148,11 +148,11 @@ final class TableViewController: NSViewController {
         var savedResult = Int32(0)
         let updateGroup = DispatchGroup()
         
-        // Prevent disk thrashing (non-ssd) ... limit simultaneousn Perl instances.
+        // Prevent disk thrashing (non-ssd) ... limit simultaneous Perl instances.
         // This is a new requirement as video support is added to this branch.
         // Video files can be extremely large. Letting parallel Perl processes write
         // multiple large files back to the disk simultaneously can thrash rotating
-        // media and have a diminishing affect on save performance.
+        // media and have a diminishing affect on write performance.
         // TODO: Check file size, if small, kick off another thread
         //       if large, wait until current count decrements
         let semaphore = DispatchSemaphore(value: 4)
@@ -332,6 +332,9 @@ final class TableViewController: NSViewController {
         case #selector(discard(_:)):
             // OK if there are changes pending
             return !saveInProgress && appDelegate.modified
+        case #selector(discardTracks(_:)):
+            // OK if tracks exist
+            return !mapViewController.mapLines.isEmpty
         case #selector(cut(_:)),
              #selector(copy(_:)):
             // OK if only one row with a valid location selected
@@ -347,8 +350,8 @@ final class TableViewController: NSViewController {
             if !saveInProgress && tableView.numberOfSelectedRows > 0 {
                 let pb = NSPasteboard.general
                 if let pasteVal = pb.string(forType: NSPasteboard.PasteboardType.string) {
-                    // pasteVal should look like "lat lon"
-                    let values = pasteVal.components(separatedBy: " ")
+                    // pasteVal should look like "lat | lon"
+                    let values = pasteVal.components(separatedBy: "|")
                     if values.count == 2 {
                         return true
                     }
@@ -397,6 +400,10 @@ final class TableViewController: NSViewController {
         reloadAllRows()
     }
 
+    @IBAction func discardTracks(_ sender: Any) {
+        mapViewController.removeTracks()
+    }
+
     /// copy the selected item location into the pasteboard then delete from item
     ///
     /// - Parameter obj: unused in this function
@@ -439,12 +446,14 @@ final class TableViewController: NSViewController {
     func paste(_: AnyObject) {
         let pb = NSPasteboard.general
         if let pasteVal = pb.string(forType: NSPasteboard.PasteboardType.string) {
-            // pasteVal should look like "lat lon"
-            let values = pasteVal.components(separatedBy: " ")
-            if values.count == 2 {
-                let latitude = values[0].doubleValue
-                let longitude = values[1].doubleValue
-                _ = updateSelectedRows(coord: Coord(latitude: latitude, longitude: longitude))
+            // pasteVal should look like "lat | lon"
+            let values = pasteVal.components(separatedBy: "|")
+            if values.count == 2,
+               let latitude = values[0].validateLocation(range: 0...90,
+                                                       reference: ["N", "S"]),
+               let longitude = values[1].validateLocation(range: 0...180,
+                                                        reference: ["E", "W"]) {
+                updateSelectedRows(coord: Coord(latitude: latitude, longitude: longitude))
                 appDelegate.undoManager.setActionName("paste")
             }
         }
@@ -743,6 +752,7 @@ final class TableViewController: NSViewController {
     ///
     /// Update all selected rows as a single undo group.
 
+    @discardableResult
     func updateSelectedRows(coord: Coord) -> Bool {
         let rows = tableView.selectedRowIndexes
         guard !rows.isEmpty else { return false }
@@ -941,7 +951,7 @@ extension TableViewController: MapViewDelegate {
     func mouseClicked(mapView: MapView!,
                       location: CLLocationCoordinate2D) {
         if !saveInProgress {
-            _ = updateSelectedRows(coord: location)
+            updateSelectedRows(coord: location)
             appDelegate.undoManager.setActionName("location change")
         }
     }
@@ -969,16 +979,5 @@ extension NSTableView {
             deselectAll(self)
         }
         super.rightMouseDown(with: theEvent)
-    }
-}
-
-//MARK: String extension -> Double
-
-/// Convert a string to a double through a cast to NSString.
-/// Used in paste code to handle lat and lon as a string value.
-
-extension String {
-    var doubleValue: Double {
-        return (self as NSString).doubleValue
     }
 }

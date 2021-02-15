@@ -95,7 +95,9 @@ struct Exiftool {
                                "-api largefilesupport=1",
                               latArg, latRefArg,
                               lonArg, lonRefArg]
-        
+        if Preferences.modTime() {
+            exiftool.arguments! += ["-P"]
+        }
         if Preferences.dateTimeGPS() {
             if imageData.sandboxXmp == nil {
                 exiftool.arguments! += [gpsDArg, gpsTArg]
@@ -247,6 +249,7 @@ struct Exiftool {
     ///
     /// Nil is returned if there was no date/time original or we couldn't get the
     /// appropriate time zone from image geolocation data.
+
     private
     func dtoWithZone(from imageData: ImageData) -> String? {
         if imageData.timeZone != nil,

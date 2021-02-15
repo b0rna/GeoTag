@@ -33,6 +33,7 @@ final class Preferences  {
     static let coordFormatKey = "CoordFormatKey"
     static let sidecarKey = "SidecarKey"
     static let dateTimeGPSKey = "DateTimeGPSKey"
+    static let modTimeKey = "ModTimeKey"
     static let trackColorKey = "TrackColorKey"
     static let trackWidthKey = "TrackWidthKey"
 
@@ -107,14 +108,20 @@ final class Preferences  {
     }
 
     class
+    func modTime() -> Bool {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: modTimeKey)
+    }
+
+    class
     func trackColor() -> NSColor {
         let defaults = UserDefaults.standard
         if let data = defaults.data(forKey: trackColorKey),
-           let color = NSUnarchiver.unarchiveObject(with: data) {
+           let color = NSKeyedUnarchiver.unarchiveObject(with: data) {
             return color as! NSColor
         }
         let defaultColor = NSColor.systemBlue
-        let data = NSArchiver.archivedData(withRootObject: defaultColor)
+        let data = NSKeyedArchiver.archivedData(withRootObject: defaultColor)
         defaults.set(data, forKey: trackColorKey)
         return defaultColor
     }

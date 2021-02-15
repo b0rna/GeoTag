@@ -147,6 +147,8 @@ class C_TableTests: XCTestCase {
     /// open a folder full of images with a few non images, too.
     func test1Open() {
         let table = commonOpen(fileOrFolder: testFolder)
+        print(fileCount)
+        print(table.descendants(matching: .tableRow).count)
         XCTAssertEqual(table.descendants(matching: .tableRow).count, fileCount)
         XCTAssertTrue(table.staticTexts[cr2ImageStar].exists)
         XCTAssertTrue(table.staticTexts[cr2ImageStar].isEnabled)
